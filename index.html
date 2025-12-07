@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #121212;
+      color: white;
+    }
+
+    /* Sidebar kiri */
+    .sidebar {
+      width: 250px;
+      background-color:#5332a8;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .menu a {
+      color: #b3b3b3;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .menu a:hover {
+      color: #fff;
+    }
+
+    /* Konten utama */
+    .main {
+      flex: 1;
+      padding: 20px;
+      background-color:#7A51E2;
+      overflow-y: auto;
+    }
+
+    .main h1 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #282828;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .card:hover {
+      background-color: #333;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .search-box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 25px;
+      background-color: #4c2ca1;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: #ccc;
+    }
+
+    /* Panel kanan (detail lagu) */
+    .right-panel {
+      width: 300px;
+      background-color:#5332a8;
+      border-left: 1px solid #333;
+      padding: 20px;
+    }
+
+    .now-playing img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .now-playing h3 {
+      margin: 10px 0 5px;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+     .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    button {
+      background-color: #7A51E2;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #9b7df7;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #3b256e;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress {
+      height: 8px;
+      width: 0%;
+      background-color: #fff;
+      transition: width 0.2s linear;
+    }
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #ddd;
+      margin-top: 5px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin-top: 15px;
+      accent-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <img src="logo.jpeg" height="100px" width="100px" style="border-radius: 50%; margin-bottom: 20px;">
+    <h2>MyMusic</h2>
+    <div class="menu">
+      <a href="#"> Home</a>
+      <a href="#"> Search</a>
+      <a href="#"> Your Library</a>
+      <a href="#"> Liked Songs</a>
+      <a href="#"> Playlists</a>
+    </div>
+  </div>
+
+  <!-- Konten utama -->
+  <div class="main">
+    <h1>selamat pagi user...</h1>
+     <!-- Kotak Pencarian -->
+    <div class="search-box">
+      <input type="text" placeholder="Cari lagu, artis, atau album..." id="searchInput">
+    </div>
+     <!-- Genre Favorit -->
+    <div class="section">
+      <h2>Genre </h2>
+      <div class="cards">
+        <div class="card">
+          <img src="pop.png" alt="Pop">
+          <p>Pop</p>
+        </div>
+        <div class="card">
+          <img src="rock.png" alt="Rock">
+          <p>Rock</p>
+        </div>
+        <div class="card">
+          <img src="jazz.jpeg" alt="Jazz">
+          <p>Jazz</p>
+        </div>
+        <div class="card">
+          <img src="dangdut.png" alt="Dangdut">
+          <p>Dangdut</p>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>menu</h2>
+      <div class="cards">
+        <div class="card">
+          
+          <p>artist album</p>
+        </div>
+        <div class="card">
+          
+          <p>download</p>
+        </div>
+        <div class="card">
+          
+          <p>playlist</p>
+        </div>
+        <div class="card">
+          
+          <p>Liked Songs</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Penyanyi Favorit -->
+    <div class="section">
+      <h2>⭐ Penyanyi Favorit</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="maman.png" alt="Taylor Swift">
+          <p>Maman Fvndy RMX</p>
+        </div>
+        <div class="card">
+          <img src="brunomars.jpg" alt="Bruno Mars">
+          <p>Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="deny.jpeg" alt="Denny Caknan">
+          <p>Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="charlie.jpeg" alt="BLACKPINK">
+          <p>Charlie puth</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rekomendasi Lagu -->
+    <div class="section">
+      <h2>🔥 Rekomendasi Lagu Hari Ini</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="sinarengan.jpeg" alt="Sinar Engan">
+          <p>Sinar Engan - Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="love.jpg" alt="Love Story">
+          <p>Love Story - Taylor Swift</p>
+        </div>
+        <div class="card">
+          <img src="uptown.jpg" alt="Uptown Funk">
+          <p>Uptown Funk - Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="pinkvenom.jpg" alt="Pink Venom">
+          <p>Pink Venom - BLACKPINK</p>
+        </div>
+      </div>
+    </div>
+<!------WKWKWKWK-->
+     <div class="section">
+      <h2>sering anda putar</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="sinarengan.jpeg" alt="Sinar Engan">
+          <p>Sinar Engan - Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="love.jpg" alt="Love Story">
+          <p>Love Story - Taylor Swift</p>
+        </div>
+        <div class="card">
+          <img src="uptown.jpg" alt="Uptown Funk">
+          <p>Uptown Funk - Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="pinkvenom.jpg" alt="Pink Venom">
+          <p>Pink Venom - BLACKPINK</p>
+        </div>
+      </div>
+    </div>
+<!------WKWKWKWK-->
+     <div class="section">
+      <h2>mungkin anda suka</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="sinarengan.jpeg" alt="Sinar Engan">
+          <p>Sinar Engan - Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="love.jpg" alt="Love Story">
+          <p>Love Story - Taylor Swift</p>
+        </div>
+        <div class="card">
+          <img src="uptown.jpg" alt="Uptown Funk">
+          <p>Uptown Funk - Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="pinkvenom.jpg" alt="Pink Venom">
+          <p>Pink Venom - BLACKPINK</p>
+        </div>
+      </div>
+    </div>
+<!------WKWKWKWK-->
+     <div class="section">
+      <h2>terbaru hanya untukmu</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="sinarengan.jpeg" alt="Sinar Engan">
+          <p>Sinar Engan - Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="love.jpg" alt="Love Story">
+          <p>Love Story - Taylor Swift</p>
+        </div>
+        <div class="card">
+          <img src="uptown.jpg" alt="Uptown Funk">
+          <p>Uptown Funk - Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="pinkvenom.jpg" alt="Pink Venom">
+          <p>Pink Venom - BLACKPINK</p>
+        </div>
+      </div>
+    </div>
+<!------WKWKWKWK-->
+     <div class="section">
+      <h2>sedang trend</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="sinarengan.jpeg" alt="Sinar Engan">
+          <p>Sinar Engan - Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="love.jpg" alt="Love Story">
+          <p>Love Story - Taylor Swift</p>
+        </div>
+        <div class="card">
+          <img src="uptown.jpg" alt="Uptown Funk">
+          <p>Uptown Funk - Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="pinkvenom.jpg" alt="Pink Venom">
+          <p>Pink Venom - BLACKPINK</p>
+        </div>
+      </div>
+    </div>
+    <!------WKWKWKWK-->
+     <div class="section">
+      <h2>sering anda putar</h2>
+      <div class="cards">
+        <div class="card">
+          <img src="sinarengan.jpeg" alt="Sinar Engan">
+          <p>Sinar Engan - Denny Caknan</p>
+        </div>
+        <div class="card">
+          <img src="love.jpg" alt="Love Story">
+          <p>Love Story - Taylor Swift</p>
+        </div>
+        <div class="card">
+          <img src="uptown.jpg" alt="Uptown Funk">
+          <p>Uptown Funk - Bruno Mars</p>
+        </div>
+        <div class="card">
+          <img src="pinkvenom.jpg" alt="Pink Venom">
+          <p>Pink Venom - BLACKPINK</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panel kanan -->
+  <div class="right-panel">
+    <div class="now-playing">
+      <img src="sinarengan.jpeg" alt="Now Playing">
+      <h3>sinarengan</h3>
+      <p>Deny caknan ft bella bonita</p>
+    </div>
+    <div class="controls">
+      <button id="prev">⏮</button>
+      <button id="playPause">▶</button>
+      <button id="next">⏭</button>
+    </div>
+  </div>
+    <br>
+    <br>
+    <br>
+    <br>
+  <!-- Footer -->
+  <div class="footer">
+    🎵 Now Playing: Chaise Lounge — Wet Leg
+  </div>
+</body>
+</html>
